@@ -2,14 +2,14 @@ import React, { useMemo } from "react";
 import classes from "./DemoList.module.css";
 
 const DemoList = (props) => {
-  // destructuring to pull the icons inside the props
-  const { items } = props;
+  const { items, ascending } = props;
+
   const sortedList = useMemo(() => {
-    // return props.items.sort((a, b) => a - b);
     console.log("Item sorted");
-    return items.sort((a, b) => a - b);
-  }, [items]);
-  //   props.items.sort((a, b) => a - b); //u don't want to run this code everytime the entire component is reevaluated we can use reactmemo in demolist
+    return ascending
+      ? items.slice().sort((a, b) => a - b)
+      : items.slice().sort((a, b) => b - a);
+  }, [items, ascending]);
 
   console.log("DemoList is Running");
   return (
@@ -23,6 +23,5 @@ const DemoList = (props) => {
     </div>
   );
 };
-// export default DemoList;
+
 export default React.memo(DemoList);
-// usememo hook basically allows u to memoize(store any kind of data that u wonna store) just like use callback
